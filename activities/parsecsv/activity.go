@@ -19,8 +19,8 @@ const (
 	ivFieldNames = "fieldNames"
 	ivCSV        = "csv"
 	ivFile       = "file"
-
-	ovOutput = "output"
+	delimiter    = "delimiter"
+	ovOutput     = "output"
 )
 
 // MyActivity is a stub for your Activity implementation
@@ -43,6 +43,7 @@ func (a *ParseCSVActivity) Eval(ctx activity.Context) (done bool, err error) {
 	fieldNames := ctx.GetInput(ivFieldNames).([]interface{})
 
 	var reader io.Reader
+	var dDelimiter string
 
 	if txt, ok := ctx.GetInput(ivCSV).(string); ok && len(txt) > 0 {
 		reader = strings.NewReader(txt)
@@ -56,7 +57,15 @@ func (a *ParseCSVActivity) Eval(ctx activity.Context) (done bool, err error) {
 		return false, fmt.Errorf("either a filename or a string containing the CSV must be supplied")
 	}
 
+	dDelimiter = ctx.GetInput(delimiter).(string)
+	if dDelimiter == "" {
+		dDelimiter = ","
+	}
+
 	r := csv.NewReader(reader)
+	rDelimiter := []rune(dDelimiter)
+	r.Comma = rDelimiter[0]
+
 	obj := make([]interface{}, 0)
 
 	for {

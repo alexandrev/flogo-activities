@@ -18,6 +18,11 @@
       "required": false
     },
     {
+      "name": "delimiter",
+      "type": "string",
+      "required": false
+    },
+    {
       "name": "file",
       "type": "string",
       "required": false
