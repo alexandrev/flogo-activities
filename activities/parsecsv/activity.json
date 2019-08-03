@@ -1,7 +1,7 @@
 {
   "name": "Parse CSV",
   "version": "0.0.1",
-  "ref": "github.com/mellistibco/flogo-activities/activities/parsecsv",
+  "ref": "github.com/alexandrev/flogo-activities/activities/parsecsv",
   "type": "flogo:activity",
   "title": "ParseCSV",
   "description": "Parse CSV into a Flogo Array",
