@@ -43,7 +43,7 @@ func (a *ParseCSVActivity) Eval(ctx activity.Context) (done bool, err error) {
 	fieldNames := ctx.GetInput(ivFieldNames).([]interface{})
 
 	var reader io.Reader
-	var dDelimiter string
+
 
 	if txt, ok := ctx.GetInput(ivCSV).(string); ok && len(txt) > 0 {
 		reader = strings.NewReader(txt)
@@ -57,8 +57,8 @@ func (a *ParseCSVActivity) Eval(ctx activity.Context) (done bool, err error) {
 		return false, fmt.Errorf("either a filename or a string containing the CSV must be supplied")
 	}
 
-	dDelimiter = ctx.GetInput(delimiter).(string)
-	if dDelimiter == "" {
+	dDelimiter, ok := ctx.GetInput(delimiter).(string)
+	if ok == false || dDelimiter == "" {
 		dDelimiter = ","
 	}
 
